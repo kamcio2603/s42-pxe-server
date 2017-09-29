@@ -85,9 +85,9 @@ function getServiceDNSMASQ() {
 }
 
 function getServiceTFTPD() {
-    if (strpos(shell_exec("systemctl status tftp | grep Active:"), 'failed') !== false) {
+    if (strpos(shell_exec("systemctl status dnsmasq | grep Active:"), 'failed') !== false) {
         return '<a href="?view=system&action=start-tftp"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a> <span class="label label-danger">Failed</span>';
-    } else if (strpos(shell_exec("systemctl status tftp | grep Active:"), 'inactive') !== false) {
+    } else if (strpos(shell_exec("systemctl status dnsmasq | grep Active:"), 'inactive') !== false) {
         return '<a href="?view=system&action=start-tftp"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a> <span class="label label-warning">Stopped</span>';
     } else {
         return '<a href="?view=system&action=stop-tftp"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></a> <span class="label label-success">Started</span>';
@@ -116,4 +116,8 @@ function getServiceMARIADB() {
 
 function cleanWhitespace($string) {
     return str_replace(' ', '', $string);
+}
+
+function createHelpToc($search ,$string) {
+    return str_replace($search, "### $search <div id='$search'></div>", $string);
 }

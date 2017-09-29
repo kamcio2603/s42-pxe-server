@@ -11,6 +11,22 @@ switch ($_POST['type']) {
                 shell_exec('hostnamectl set-hostname ' . $_POST['hostname']);
                 echo '<meta http-equiv="refresh" content="0; URL=/?view=system&action=reboot">';
                 break;
+            case "username":
+                shell_exec("sed 's/". $username ."/". $_POST['username'] ."/g' /var/www/html/config.php -i");
+                echo '<meta http-equiv="refresh" content="0; URL=/?view=system&action=logout">';
+                break;
+            case "password":
+                $pw = hash('sha256', $_POST['password']);
+                shell_exec("sed 's/$password/$pw/g' /var/www/html/config.php -i");
+                echo '<meta http-equiv="refresh" content="0; URL=/?view=system&action=logout">';
+                break;
+            case "sshkeys":
+                $myfile = fopen("/var/www/authorized_keys", "w") or die("Unable to open file!");
+                fwrite($myfile, $_POST['sshkeys']);
+                fclose($myfile);
+                shell_exec('sudo cp /var/www/authorized_keys /root/.ssh/authorized_keys');
+                echo '<meta http-equiv="refresh" content="0; URL=/?view=config">';
+                break;
         }
         break;
     case "add":

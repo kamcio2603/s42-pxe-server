@@ -42,13 +42,12 @@
                         echo '<li>';
                     }
                     echo '<a href="?view=config">Configuration</a></li>';
-
-                    if ($_GET['view'] == "about") {
+                    if ($_GET['view'] == "cockpit") {
                         echo '<li class="active">';
                     } else {
                         echo '<li>';
                     }
-                    echo '<a href="?view=about">About</a></li>';
+                    echo '<a href="?view=cockpit">Cockpit</a></li>';
                 } else {
                     if ($_GET['view'] == "") {
                         echo '<li class="active">';
@@ -57,18 +56,18 @@
                     }
                     echo '<a href="?">Login</a></li>';
                 }
-                if ($_GET['view'] == "help") {
-                    echo '<li class="active">';
-                } else {
-                    echo '<li>';
-                }
-                echo '<a href="?view=help">Help</a></li>';
+                //if ($_GET['view'] == "help") {
+                //    echo '<li class="active">';
+                //} else {
+                //    echo '<li>';
+                //}
+                //echo '<a href="?view=help">Help</a></li>';
                 echo '</ul>';
                 if ($_SESSION['login'] == true) {
                     echo '<ul class="nav navbar-nav navbar-right">';
-                    echo '<li><p class="navbar-text">Signed in as Admin</p></li>';
+                    echo '<li><p class="navbar-text">Signed in as '. $username .'</p></li>';
                     echo '<li><a title="Refresh" href="javascript:window.location.reload(true)"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></a></li>';
-                    echo '<li><a title="Logout" href="?view=logout" ><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>';
+                    echo '<li><a title="Logout" href="?view=system&action=logout" ><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>';
                     echo '<li><a title="Reboot" href="?view=system&action=reboot" ><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></a></li>';
                     echo '<li><a title="Shutdown" href="?view=system&action=shutdown"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>';
                     echo '</ul>';

@@ -108,45 +108,24 @@ switch ($_GET['view']) {
                 echo '<td>' . gethostname() . '</td>';
                 echo '<td><a href="?view=edit&type=config&option=hostname" class="btn btn-success btn-xs" role="button">Edit</a></td>';
             echo '</tr>';
+            echo '<tr>';
+                echo '<td>Username</td>';
+                echo '<td>' . $username . '</td>';
+                echo '<td><a href="?view=edit&type=config&option=username" class="btn btn-success btn-xs" role="button">Edit</a></td>';
+            echo '</tr>';
+            echo '<tr>';
+                echo '<td>Password</td>';
+                echo '<td>';
+                for ($i = 0;$i < strlen($password);$i++) {echo "*";} 
+                echo '</td>';
+                echo '<td><a href="?view=edit&type=config&option=password" class="btn btn-success btn-xs" role="button">Edit</a></td>';
+            echo '</tr>';
+            echo '<tr>';
+                echo '<td>SSH Keys</td>';
+                echo '<td>'. shell_exec("sudo head /root/.ssh/authorized_keys -n1") .'</td>';
+                echo '<td><a href="?view=edit&type=config&option=sshkeys" class="btn btn-success btn-xs" role="button">Edit</a></td>';
+            echo '</tr>';
         echo '</table>';
-        break;
-    case "about":
-        echo '<h2>About</h2>';
-        echo '<h3>used Technologies</h3>';
-        echo '<div class="row">';
-        echo '<div class="col-sm-6 col-md-4">';
-        echo '<div class="thumbnail">';
-        echo '<img width="150px" src="theme/img/bootstrap.png" alt="..." class="img-thumbnail">';
-        echo '<div class="caption">';
-        echo '<h3>Bootstrap 3 Web Design Framework</h3>';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-        echo '<div class="col-sm-6 col-md-4">';
-        echo '<div class="thumbnail">';
-        echo '<img width="150px" src="theme/img/centos.png" alt="..." class="img-thumbnail">';
-        echo '<div class="caption">';
-        echo '<h3>CentOS - Community Enterprise Operating System</h3>';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-        echo '<div class="col-sm-6 col-md-4">';
-        echo '<div class="thumbnail">';
-        echo '<img width="150px" src="theme/img/dnsmasq.png" alt="..." class="img-thumbnail">';
-        echo '<div class="caption">';
-        echo '<h3>dnsmasq DNS & DHCP Server</h3>';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-        echo '<div class="col-sm-6 col-md-4">';
-        echo '<div class="thumbnail">';
-        echo '<img width="150px" src="theme/img/ipxe.png" alt="..." class="img-thumbnail">';
-        echo '<div class="caption">';
-        echo '<h3>iPXE Bootloader</h3>';
-        echo '</div>';
-        echo '</div>echo ';
-        echo '</div>';
         break;
     case "overview":
         echo '<meta http-equiv="refresh" content="5; URL=/?view=overview">';
@@ -215,64 +194,10 @@ switch ($_GET['view']) {
         echo '</div>';
         break;
     case "help":
-        echo '
-                    <h2>Help</h2>
-			<div class="list-group col-md-2 ">
-				<a href="?view=help" ' . getHelpActive("", $_GET['page']) . '>General</a>
-				<a href="?view=help&page=images" ' . getHelpActive("images", $_GET['page']) . '>Images</a>
-				<a href="?view=help&page=images_kernelboot" ' . getHelpActive("images_kernelboot", $_GET['page']) . '><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Kernelboot</a>
-				<a href="?view=help&page=images_sanboot" ' . getHelpActive("images_sanboot", $_GET['page']) . '><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> ISO (sanboot)</a>
-				<a href="?view=help&page=images_memdiskboot" ' . getHelpActive("images_memdiskboot", $_GET['page']) . '><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> ISO (memdisk)</a>
-				<a href="?view=help&page=images_chainload" ' . getHelpActive("images_chainload", $_GET['page']) . '><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Chainload</a>
-				<a href="?view=help&page=configuration" ' . getHelpActive("configuration", $_GET['page']) . '>Configuration</a>
-				<a href="?view=help&page=troubleshooting" ' . getHelpActive("troubleshooting", $_GET['page']) . '>Troubleshooting</a>
-				<a href="?view=help&page=troubleshooting_noboot" ' . getHelpActive("troubleshooting_noboot", $_GET['page']) . '><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> System is not Booting</a>
-				<a href="?view=help&page=troubleshooting_noisoload" ' . getHelpActive("troubleshooting_noisoload", $_GET['page']) . '><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> ISO File will not start</a>
-				<a href="?view=help&page=troubleshooting_credwrong" ' . getHelpActive("troubleshooting_credwrong", $_GET['page']) . '><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Username/Password wrong</a>
-				<a href="?view=help&page=troubleshooting_needaccess" ' . getHelpActive("troubleshooting_needaccess", $_GET['page']) . '><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Need Access</a>
-			</div>';
-        switch ($_GET['page']) {
-            case "images";
-                echo '<h3>Images</h3>';
-                break;
-            case "images_kernelboot";
-                echo '<h3>Images <small>Kernelboot</small></h3>';
-                break;
-            case "images_sanboot";
-                echo '<h3>Images <small>ISO (sanboot)</small></h3>';
-                break;
-            case "images_memdiskboot";
-                echo '<h3>Images <small>ISO (memdisk)</small></h3>';
-                break;
-            case "images_chainload";
-                echo '<h3>Images <small>Chainload</small></h3>';
-                break;
-            case "configuration";
-                echo '<h3>Configuration</h3>';
-                break;
-            case "troubleshooting";
-                echo '<h3>Troubleshooting</h3>';
-                break;
-            case "troubleshooting_noboot";
-                echo '<h3>Troubleshooting <small>Kernelboot System is not booting</small></h3>';
-                break;
-            case "troubleshooting_noisoload";
-                echo '<h3>Troubleshooting <small>ISO File will not boot</small></h3>';
-                break;
-            case "troubleshooting_credwrong";
-                echo '<h3>Troubleshooting <small>Username / Password wrong</small></h3>';
-                break;
-            case "troubleshooting_needaccess";
-                echo '<h3>Troubleshooting <small>Request Access</small></h3>';
-                break;
-            case "";
-                echo '<h3>General</h3>';
-                echo '<h4>Introduction</h4>';
-                echo '<h4>Features</h4>';
-                echo '<h4>Development</h4>';
-                break;
-        }
+        echo file_get_contents('docs/README.html');
         break;
+    case "cockpit":
+        echo '</div><iframe src="https://'. $_SERVER['SERVER_ADDR'] .':9090" frameborder="0" style="margin-top: -20px;" height="95%" scrolling="no" width="100%"></iframe> ';
     case "add":
         switch ($_GET['type']) {
             case 'kernelboot':
@@ -362,7 +287,6 @@ switch ($_GET['view']) {
             case 'config':
                 switch ($_GET['option']) {
                     case "hostname":
-
                         echo '<h2>Configuration <small>Hostname</small></h2>';
                         echo '<div class="alert alert-danger" role="alert">System reboots after save automatically</div>';
                         echo '
@@ -370,6 +294,36 @@ switch ($_GET['view']) {
 							<input type="text" class="form-control" name="hostname" value="' . gethostname() . '">
 							<input type="hidden" name="type" value="config">
 							<input type="hidden" name="option" value="hostname">
+							<input type="submit" value="Save" class="btn btn-default">
+							</form>';
+                        break;
+                    case "username":
+                        echo '<h2>Configuration <small>Username</small></h2>';
+                        echo '
+							<form class="form-inline" action="save.php" method="POST">
+							<input type="text" class="form-control" name="username" value="' . $username . '">
+							<input type="hidden" name="type" value="config">
+							<input type="hidden" name="option" value="username">
+							<input type="submit" value="Save" class="btn btn-default">
+							</form>';
+                        break;
+                    case "password":
+                        echo '<h2>Configuration <small>Password</small></h2>';
+                        echo '
+							<form class="form-inline" action="save.php" method="POST">
+							<input type="password" class="form-control" name="password">
+							<input type="hidden" name="type" value="config">
+							<input type="hidden" name="option" value="password">
+							<input type="submit" value="Save" class="btn btn-default">
+							</form>';
+                        break;
+                    case "sshkeys":
+                        echo '<h2>Configuration <small>SSH Keys</small></h2>';
+                        echo '
+							<form class="form-inline" action="save.php" method="POST">
+							<textarea class="form-control" cols="250" rows="15"  name="sshkeys">'. shell_exec("sudo cat /root/.ssh/authorized_keys") .'</textarea><br />
+							<input type="hidden" name="type" value="config">
+							<input type="hidden" name="option" value="sshkeys">
 							<input type="submit" value="Save" class="btn btn-default">
 							</form>';
                         break;
@@ -500,12 +454,12 @@ switch ($_GET['view']) {
                 break;
             case "start-tftp":
                 echo'<div class="alert alert-warning" role="warning">Starting TFTP Service...</div>';
-                shell_exec("sudo systemctl start tftp");
+                shell_exec("sudo systemctl start dnsmasq");
                 echo '<meta http-equiv="refresh" content="5; URL=/?view=overview">';
                 break;
             case "stop-tftp":
                 echo'<div class="alert alert-warning" role="warning">Stopping TFTP Service...</div>';
-                shell_exec("sudo systemctl stop tftp");
+                shell_exec("sudo systemctl stop dnsmasq");
                 echo '<meta http-equiv="refresh" content="5; URL=/?view=overview">';
                 break;
             case "start-httpd":
@@ -528,11 +482,11 @@ switch ($_GET['view']) {
                 shell_exec("sudo systemctl stop mariadb");
                 echo '<meta http-equiv="refresh" content="5; URL=/?view=overview">';
                 break;
+            case "logout":
+                $_SESSION['login'] = false;
+                echo '<meta http-equiv="refresh" content="0; URL=/?">';
+                break;
         }
-        break;
-    case "logout":
-        $_SESSION['login'] = false;
-        echo '<meta http-equiv="refresh" content="0; URL=/?">';
         break;
     case "":
         if ($_SESSION['login'] == true) {

@@ -1,0 +1,4 @@
+apache ALL=(ALL) NOPASSWD: /usr/bin/systemctl 
+apache ALL=(ALL) NOPASSWD: /usr/bin/shutdown
+apache ALL=(ALL) NOPASSWD: /usr/bin/hostnamectl
+apache ALL=(ALL) NOPASSWD: /usr/bin/cp
